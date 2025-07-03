@@ -5,6 +5,9 @@ import ipaddress
 def main():
     ip_df = pd.read_excel('ip_data.xlsx', 'Sheet1')
 
+    # Dictionary that groups IPs together by subnet/CIDR.
+    subnet_grouping = {}
+
     # Dictionary that contains the necessary information that will be written into the CSV file.
     summary_report = {
         'IP Address' : [],
@@ -18,6 +21,12 @@ def main():
     for ip, mask in zip(ip_df['IP Address'], ip_df['Subnet Mask']):
         ip_data = ipaddress.IPv4Interface((ip, mask))
         add_to_report(summary_report, ip_data)
+
+        subnet = ip_data.network
+        if subnet not in subnet_grouping:
+            subnet_grouping[subnet] = []
+
+        subnet_grouping[subnet].append(ip_data.ip)
 
     csv_df = pd.DataFrame(summary_report)
     csv_df.to_csv('subnet_report.csv', index=False)
