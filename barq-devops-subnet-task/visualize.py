@@ -13,6 +13,6 @@ def create_subnet_plot(subnet_grouping):
     plt.bar(all_subnets, host_counts)
     plt.xlabel('Subnets')
     plt.xticks(rotation=35, ha='right') # Rotates the labels so they don't overlap
-    plt.ylabel('Host Counts')
-    plt.title('Number of Existing Host Addresses on Each Subnet')
+    plt.ylabel('Number of Hosts')
+    plt.title('Number of Existing Hosts per Subnet')
     plt.savefig('network_plot.png')
