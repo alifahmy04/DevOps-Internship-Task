@@ -33,7 +33,6 @@ def main():
     csv_df.to_csv('subnet_report.csv', index=False)
 
     create_subnet_plot(subnet_grouping)
-    plt.show()
 
 
 # Used to add the information from the IPv4Interface to the report dictionary.
