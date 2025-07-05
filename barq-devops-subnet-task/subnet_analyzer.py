@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import ipaddress
+from visualize import create_subnet_plot
 
 def main():
     ip_df = pd.read_excel('ip_data.xlsx', 'Sheet1')
@@ -43,23 +44,6 @@ def add_to_report(summary_report, ip_data):
     summary_report['Network Address'].append(str(ip_data.network.network_address))
     summary_report['Broadcast Address'].append(str(ip_data.network.broadcast_address))
     summary_report['Number of Host Addresses'].append(ip_data.network.num_addresses - 2)
-
-
-# Creates a bar chart which shows the number of hosts per subnet.
-def create_subnet_plot(subnet_grouping):   
-    all_subnets = []
-    host_counts = []
-    for subnet in subnet_grouping:
-        all_subnets.append(str(subnet))
-        host_counts.append(len(subnet_grouping[subnet]))
-
-    plt.figure(figsize=(19.2, 12))
-    plt.bar(all_subnets, host_counts)
-    plt.xlabel('Subnets')
-    plt.xticks(rotation=35, ha='right') # Rotates the labels so they don't overlap
-    plt.ylabel('Host Counts')
-    plt.title('Hosts Grouped by Subnet')
-    plt.savefig('network_plot.png')
 
 
 if __name__ == '__main__':
